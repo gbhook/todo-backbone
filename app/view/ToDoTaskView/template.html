@@ -1,0 +1,8 @@
+
+  <div class="view">
+    <input class="toggle" type="checkbox" <% if(data.status) { print('checked') ; }; %> >
+    <label><%= data.taskName %></label>
+    <button class="destroy"></button>
+  </div>
+  <input class="edit" value="<%= data.taskName %>">
+

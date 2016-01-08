@@ -1,0 +1,15 @@
+<% if(data.active>0){ %><span id="todo-count"><strong><%= data.active %></strong> item<% if(data.active>1){ %>s<% } %> left</span><% } %>
+<!-- Remove this if you don't implement routing -->
+<ul id="filters">
+  <li>
+    <a id="allLabel" href="#/filter/all">All</a>
+  </li>
+  <li>
+    <a id="activeLabel" href="#/filter/active">Active</a>
+  </li>
+  <li>
+    <a id="completedLabel" class="selected" href="#/filter/completed">Completed</a>
+  </li>
+</ul>
+<!-- Hidden if no completed items are left ↓ -->
+<% if(data.completed>0){ %><button id="clear-completed">Clear completed <%= data.completed %></button><% }; %>
