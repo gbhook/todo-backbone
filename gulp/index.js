@@ -45,7 +45,8 @@ gulp.task('watch', function(done) {
       clicks: false,
       forms: false,
       scroll: false
-    }
+    },
+    notify:false
   });
 
   gulp.watch(config.scripts.app.src, gulp.series( 'tests', 'scripts-app' ));
