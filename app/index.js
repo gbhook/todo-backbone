@@ -3,8 +3,10 @@
 var config = require('./config');
 var Backbone = require('backbone') ;
 var Router = require('./router/Router');
+var App = require('./app');
 //----------------------------------------
 
-var router = new Router() ;
+window.app = new App() ;
+
+window.router = new Router() ;
 Backbone.history.start() ;
-console.log(config);
