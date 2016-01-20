@@ -1,1 +1,4 @@
-<div id="pageOne">Page One</div>
+<div id="pageOne">
+  <% if (status) {%><span class="completed"><% } %> Page One <%= content %></span>
+  <p>This page has been loaded <%= history %> times</p>
+</div>

@@ -12,9 +12,12 @@ var PageOneView = Backbone.View.extend({
 
   },
 
+  history:0,
+
   render:function() {
 
-    var pageTemplate = _.template(template())();
+    this.history++;
+    var pageTemplate = _.template(template())({content:'<p>This is the <b>page content</b></p>', status:false, history:this.history});
     this.$el.html(pageTemplate) ;
 
   }
