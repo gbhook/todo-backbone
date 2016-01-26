@@ -5,22 +5,23 @@ var $ = require('jquery');
 var _ = require('underscore');
 var template = require('./template.html');
 var TaskDisplayView = require('../taskDisplay/TaskDisplayView');
-var TaskInputView = require('../taskInput/TaskInputView');
 
 var TaskView = Backbone.View.extend({
 
+  taskName:null,
 
   initialize: function() {
 
-    this.taskLi = this.$el.append('<li>') ;
-    this.input = new TaskInputView({el:this.taskLi, taskName:this.taskName});
-    this.display = new TaskDisplayView({el:this.taskLi, taskName:this.taskName}) ;
+
+    this.taskLi = document.createElement('li') ;
+    this.$el.append(this.taskLi) ;
+    this.display = new TaskDisplayView({el:this.taskLi}) ;
 
   },
 
   render:function() {
-
-    this.input.render() ;
+    console.log(this.taskName);
+    this.display.taskName = this.taskName;
     this.display.render() ;
 
   }

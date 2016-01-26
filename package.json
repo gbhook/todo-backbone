@@ -49,6 +49,7 @@
     "mocha": "^1.21.4",
     "nib": "^1.0.3",
     "opn": "~1.0.0",
+    "underscore": "^1.8.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-paths": "^1.0.0",
     "vinyl-source-stream": "^0.1.1",

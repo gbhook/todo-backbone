@@ -7,7 +7,7 @@ var template = require('./template.html');
 
 var TaskDisplayView = Backbone.View.extend({
 
-
+  taskName:null,
 
   initialize:function() {
 
@@ -15,9 +15,9 @@ var TaskDisplayView = Backbone.View.extend({
 
   render:function() {
 
-    var pageTemplate = _.template(template())({taskName:this.taskNumber});
-    //this.$el.appendTo(pageTemplate) ;
-    $(pageTemplate).appendTo(this.$el)
+    console.log(this.$el);
+    var pageTemplate = _.template(template())({taskName:this.taskName});
+    this.$el.append(pageTemplate) ;
 
   }
 
