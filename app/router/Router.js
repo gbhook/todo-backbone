@@ -3,14 +3,14 @@
 var Backbone = require('backbone');
 var $ = require('jquery') ;
 var FooterView = require('../views/footer/FooterView');
-var TaskView = require('../views/tasks/taskView/TaskView');
+var TaskList = require('../views/tasks/taskList/TaskList');
 
 var Router = Backbone.Router.extend({
 
   initialize: function() {
 
     this.mainContent = $('#main-content') ;
-    this.taskList = $('#task-list');
+    this.taskListDiv = $('#task-list');
     this.footer = new FooterView({el:$('footer')}) ;
     this.footer.render();
 
@@ -37,11 +37,11 @@ var Router = Backbone.Router.extend({
 
   buildList:function(){
 
-    for(var i=0; i<5; i++){
-      var taskView = new TaskView({el:this.taskList}) ;
-      taskView.taskName = i.toString();
-      taskView.render();
-    }
+
+      var taskList = new TaskList({el:this.taskListDiv}) ;
+      taskList.taskName = i.toString();
+      taskList.render();
+
   }
 }) ;
 

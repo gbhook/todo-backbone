@@ -10,7 +10,7 @@ var TaskDisplayView = Backbone.View.extend({
   taskName:null,
 
   initialize:function() {
-
+    this.el =document.createElement('li') ;
   },
 
   render:function() {
