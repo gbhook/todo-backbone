@@ -10,12 +10,14 @@ var TaskDisplayView = Backbone.View.extend({
   taskName:null,
 
   initialize:function() {
-    this.el =document.createElement('li') ;
+
   },
 
   render:function() {
 
+    //this.el = document.getElementById('task-list');
     console.log(this.$el);
+
     var pageTemplate = _.template(template())({taskName:this.taskName});
     this.$el.append(pageTemplate) ;
 

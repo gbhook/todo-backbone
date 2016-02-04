@@ -10,7 +10,7 @@ var Router = Backbone.Router.extend({
   initialize: function() {
 
     this.mainContent = $('#main-content') ;
-    this.taskListDiv = $('#task-list');
+    this.taskContainerDiv = $('#task-container');
     this.footer = new FooterView({el:$('footer')}) ;
     this.footer.render();
 
@@ -37,9 +37,7 @@ var Router = Backbone.Router.extend({
 
   buildList:function(){
 
-
-      var taskList = new TaskList({el:this.taskListDiv}) ;
-      taskList.taskName = i.toString();
+      var taskList = new TaskList({el:this.taskContainerDiv}) ;
       taskList.render();
 
   }

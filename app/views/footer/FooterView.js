@@ -13,7 +13,7 @@ var FooterView = Backbone.View.extend({
 
   render:function(){
 
-    console.log('RENDER');
+    console.log('Footer Render');
     var pageTemplate = _.template(template())();
     this.$el.html(pageTemplate) ;
 
