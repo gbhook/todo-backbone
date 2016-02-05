@@ -35,6 +35,12 @@ var Router = Backbone.Router.extend({
 
   },
 
+  buildData:function(){
+
+
+
+  },
+
   buildList:function(){
 
       var taskList = new TaskList({el:this.taskContainerDiv}) ;
