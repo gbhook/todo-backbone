@@ -8,6 +8,8 @@ var TaskViewDisplay = require('../taskDisplay/TaskDisplayView');
 
 var TaskList = Backbone.View.extend ({
 
+  tasksCollection:null,
+
   initialize:function() {
 
   },
@@ -18,12 +20,26 @@ var TaskList = Backbone.View.extend ({
     this.$el.append(pageTemplate) ;
     var taskUl = $('#task-list') ;
 
-    for(var i=0; i<5; i++){
+    console.log(pageTemplate);
+
+    _.each(this.tasksCollection.models, function(task){
+      console.log(task.attributes.taskName) ;
+      var taskView = new TaskViewDisplay({el:taskUl}) ;
+      taskView.taskName = task.attributes.taskName;
+      taskView.model = task ;
+      taskView.render();
+    });
+
+    /*for(var i=0; i<5; i++){
 
       var taskView = new TaskViewDisplay({el:taskUl}) ;
       taskView.taskName = i.toString();
       taskView.render();
-    }
+    }*/
+
+  },
+
+  buildTasks: function(){
 
   }
 
