@@ -16,6 +16,7 @@ var TaskList = Backbone.View.extend ({
     this.afterNewMessage = 'What else do you want to do?'
 
     this.listenTo(this.collection, 'add', this.renderTasks) ;
+    this.listenTo(this.collection, 'remove', this.renderTasks);
   },
 
   events: {
@@ -40,7 +41,7 @@ var TaskList = Backbone.View.extend ({
     this.taskUl.html('');
 
     _.each(this.collection.models, function(task){
-      var taskView = new TaskViewDisplay({model:task}) ;
+      var taskView = new TaskViewDisplay({model:task, collection:this.collection}) ;
       this.taskUl.append(taskView.render());
     }, this);
 
@@ -50,7 +51,11 @@ var TaskList = Backbone.View.extend ({
 
     var inputValue = $('#new-task-input-field').val();
 
-    if(inputValue==='') return ;
+    if(inputValue==='') {
+      $('#new-task-input-field').blur();
+      $('#new-task-input-field').val(this.afterNewMessage);
+      return ;
+    }
 
     var newTask = new TaskModel({taskName:inputValue});
 

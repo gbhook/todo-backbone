@@ -18,6 +18,7 @@ var TaskDisplayView = Backbone.View.extend({
   events:{
     'click .status-checkbox':'onStatusClicked',
     'click label' : 'onTaskClicked',
+    'click button' : 'onDeleteButtonClicked',
     'blur .task-name' : 'onTaskBlur'
   },
 
@@ -70,6 +71,11 @@ var TaskDisplayView = Backbone.View.extend({
     this.input.hide();
     this.label.show() ;
     console.log(this.model);
+  },
+
+  onDeleteButtonClicked: function() {
+    console.log('on DELETE CLICKED');
+    this.collection.remove(this.model);
   }
 
 });
