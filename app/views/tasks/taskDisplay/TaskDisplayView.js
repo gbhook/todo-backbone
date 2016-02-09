@@ -7,29 +7,45 @@ var template = require('./template.html');
 
 var TaskDisplayView = Backbone.View.extend({
 
+  tagName:'li',
+
   initialize:function() {
 
-    //this.listenTo(this.model, 'change', this.render) ;
+    this.listenTo(this.model, 'change:taskName', this.update) ;
 
   },
 
   events:{
-    'click .statusCheckbox':'onStatusClicked',
-    'click label' : 'onTaskClicked'
+    'click .status-checkbox':'onStatusClicked',
+    'click label' : 'onTaskClicked',
+    'blur .task-name' : 'onTaskBlur'
   },
 
   render:function() {
 
-    var pageTemplate = _.template(template())({taskStatus:this.model.attributes.status, taskName:this.model.attributes.taskName});
+    var data = {
+      taskStatus:this.model.attributes.status,
+      taskName:this.model.attributes.taskName,
+      taskId:this.model.cid
+    } ;
 
-    this.$el.append(pageTemplate) ;
+    var pageTemplate = _.template(template())({data:data});
+
+    this.$el.html(pageTemplate) ;
     this.input = this.$('.task-name');
     this.checkbox = this.$('.status-checkbox');
     this.label = this.$('label');
     this.input.hide();
-    console.log("QUE?") ;
+
     console.log(this.input.val());
 
+    return this.el ;
+
+  },
+
+  update:function() {
+    console.log('Task View Update');
+    this.label.html(this.model.get('taskName'));
   },
 
   onStatusClicked: function() {
@@ -42,7 +58,18 @@ var TaskDisplayView = Backbone.View.extend({
     console.log('TaskDisplayView onTaskClicked') ;
     console.log(this.input);
     this.input.show();
+    this.input.focus();
     this.label.hide();
+  },
+
+  onTaskBlur: function() {
+
+    console.log('on task blur');
+
+    this.model.set("taskName",this.input.val());
+    this.input.hide();
+    this.label.show() ;
+    console.log(this.model);
   }
 
 });

@@ -9,12 +9,13 @@ var TaskModel = require('../../../model/TaskModel');
 
 var TaskList = Backbone.View.extend ({
 
-  tasksCollection:null,
 
   initialize:function() {
     this.taskUl;
     this.defaultMessage = 'What do you want to do today?';
     this.afterNewMessage = 'What else do you want to do?'
+
+    this.listenTo(this.collection, 'add', this.renderTasks) ;
   },
 
   events: {
@@ -30,9 +31,17 @@ var TaskList = Backbone.View.extend ({
     this.$el.append(pageTemplate) ;
     this.taskUl = $('#task-list') ;
 
-    _.each(this.tasksCollection.models, function(task){
-      var taskView = new TaskViewDisplay({el:this.taskUl, model:task}) ;
-      taskView.render();
+    this.renderTasks();
+
+  },
+
+  renderTasks: function() {
+
+    this.taskUl.html('');
+
+    _.each(this.collection.models, function(task){
+      var taskView = new TaskViewDisplay({model:task}) ;
+      this.taskUl.append(taskView.render());
     }, this);
 
   },
@@ -41,11 +50,11 @@ var TaskList = Backbone.View.extend ({
 
     var inputValue = $('#new-task-input-field').val();
 
+    if(inputValue==='') return ;
+
     var newTask = new TaskModel({taskName:inputValue});
 
-    this.tasksCollection.add(newTask) ;
-    var taskView = new TaskViewDisplay({el:this.taskUl, model:newTask}) ;
-    taskView.render();
+    this.collection.add(newTask) ;
 
     $('#new-task-input-field').val(this.afterNewMessage);
     $('#new-task-input-field').blur();
