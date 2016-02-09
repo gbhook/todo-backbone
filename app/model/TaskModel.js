@@ -7,7 +7,10 @@ var _ = require('underscore');
 var TaskModel = Backbone.Model.extend({
 
  //taskName:'',
-  taskStatus:false,
+  defaults:{
+    status:false,
+    taskName:''
+  }
   //taskId:null
 
 });

@@ -5,42 +5,69 @@ var $ = require('jquery');
 var _ = require('underscore');
 var template = require('./template.html');
 var TaskViewDisplay = require('../taskDisplay/TaskDisplayView');
+var TaskModel = require('../../../model/TaskModel');
 
 var TaskList = Backbone.View.extend ({
 
   tasksCollection:null,
 
   initialize:function() {
+    this.taskUl;
+    this.defaultMessage = 'What do you want to do today?';
+    this.afterNewMessage = 'What else do you want to do?'
+  },
+
+  events: {
+
+    'keypress' : 'onKeyPress',
+    'click #new-task-input-field' : 'onNewTaskClick'
 
   },
 
   render: function() {
 
-    var pageTemplate = _.template(template())();
+    var pageTemplate = _.template(template())({defaultMessage:this.defaultMessage});
     this.$el.append(pageTemplate) ;
-    var taskUl = $('#task-list') ;
+    this.taskUl = $('#task-list') ;
 
-    console.log(pageTemplate);
+    console.log(this.taskUl);
 
     _.each(this.tasksCollection.models, function(task){
-      console.log(task.attributes.taskName) ;
-      var taskView = new TaskViewDisplay({el:taskUl}) ;
-      taskView.taskName = task.attributes.taskName;
-      taskView.model = task ;
+      var taskView = new TaskViewDisplay({el:this.taskUl, model:task}) ;
       taskView.render();
-    });
-
-    /*for(var i=0; i<5; i++){
-
-      var taskView = new TaskViewDisplay({el:taskUl}) ;
-      taskView.taskName = i.toString();
-      taskView.render();
-    }*/
+    }, this);
 
   },
 
-  buildTasks: function(){
+  addNewTask:function() {
 
+    var inputValue = $('#new-task-input-field').val();
+
+    var newTask = new TaskModel({taskName:inputValue});
+
+    this.tasksCollection.add(newTask) ;
+    var taskView = new TaskViewDisplay({el:this.taskUl, model:newTask}) ;
+    taskView.render();
+
+    $('#new-task-input-field').val(this.afterNewMessage);
+    $('#new-task-input-field').blur();
+
+    console.log('ADD NEW TASK');
+  },
+
+  onKeyPress: function(e) {
+
+    switch (e.charCode) {
+      case 13 :
+            this.addNewTask() ;
+            break ;
+
+    }
+  },
+
+  onNewTaskClick: function(e) {
+
+    $('#new-task-input-field').val('');
   }
 
 });

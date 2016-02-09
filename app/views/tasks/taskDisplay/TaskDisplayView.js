@@ -7,7 +7,7 @@ var template = require('./template.html');
 
 var TaskDisplayView = Backbone.View.extend({
 
-  taskName:null,
+  model:{},
 
   initialize:function() {
 
@@ -16,9 +16,9 @@ var TaskDisplayView = Backbone.View.extend({
   render:function() {
 
     //this.el = document.getElementById('task-list');
-    console.log(this.$el);
+    console.log(this.model);
 
-    var pageTemplate = _.template(template())({taskName:this.taskName});
+    var pageTemplate = _.template(template())({taskStatus:this.model.attributes.status, taskName:this.model.attributes.taskName});
     this.$el.append(pageTemplate) ;
 
   }

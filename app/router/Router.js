@@ -13,10 +13,13 @@ var Router = Backbone.Router.extend({
 
     this.mainContent = $('#main-content') ;
     this.taskContainerDiv = $('#task-container');
-    this.footer = new FooterView({el:$('footer')}) ;
-    this.footer.render();
 
+    this.buildData();
     this.buildList();
+
+    this.footer = new FooterView({el:$('footer')}) ;
+    this.footer.tasks = window.app.tasks;
+    this.footer.render();
   },
 
   routes: {
@@ -49,7 +52,7 @@ var Router = Backbone.Router.extend({
 
   buildList:function(){
 
-      this.buildData();
+
       var taskList = new TaskList({el:this.taskContainerDiv}) ;
       taskList.tasksCollection = window.app.tasks ;
       taskList.render();
