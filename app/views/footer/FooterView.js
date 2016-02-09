@@ -7,15 +7,14 @@ var template = require('./template.html');
 
 var FooterView = Backbone.View.extend({
 
-  tasks:null,
-
   initialize:function(){
-    console.log('Footer Initialized');
+    this.listenTo(this.collection, 'add', this.render) ;
+    this.listenTo(this.collection, 'change', this.render);
   },
 
   render:function(){
 
-    var tasksLeft = this.tasks.length ;
+    var tasksLeft = this.collection.where({status:false}).length ;
     var pageTemplate = _.template(template())({tasksLeft:tasksLeft});
     this.$el.html(pageTemplate) ;
 

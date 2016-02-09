@@ -30,8 +30,6 @@ var TaskList = Backbone.View.extend ({
     this.$el.append(pageTemplate) ;
     this.taskUl = $('#task-list') ;
 
-    console.log(this.taskUl);
-
     _.each(this.tasksCollection.models, function(task){
       var taskView = new TaskViewDisplay({el:this.taskUl, model:task}) ;
       taskView.render();

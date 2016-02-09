@@ -1,1 +1,5 @@
-<li><input type="checkbox" <% if (taskStatus) {%> checked <% } %> > <%=taskName %><input type="text" name="task-name" value="<%=taskName %>" class="hidden"></li>
+<li>
+  <input class="status-checkbox" name="status" type="checkbox" <% if (taskStatus) {%> checked <% } %> >
+  <label><%=taskName %></label>
+  <input type="text" name="task" class="task-name" value="<%=taskName %>" >
+</li>

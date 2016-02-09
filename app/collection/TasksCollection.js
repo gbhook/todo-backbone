@@ -10,8 +10,7 @@ var TasksCollection = Backbone.Collection.extend({
   model:Task,
 
   events: {
-    'add' : 'newTaskAdded',
-    'change' : 'newTaskAdded'
+
   },
 
   newTaskAdded: function () {
