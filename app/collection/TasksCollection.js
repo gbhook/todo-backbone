@@ -7,10 +7,8 @@ var Task = require('../model/TaskModel');
 
 var TasksCollection = Backbone.Collection.extend({
 
-  model:Task,
-
-
+  model: Task
 
 });
 
-module.exports = TasksCollection ;
+module.exports = TasksCollection;

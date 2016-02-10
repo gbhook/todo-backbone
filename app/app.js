@@ -1,10 +1,7 @@
-'use strict' ;
+'use strict';
 
-
-var App = function() {
-
-
+var App = function () {
 
 };
 
-module.exports = App ;
+module.exports = App;

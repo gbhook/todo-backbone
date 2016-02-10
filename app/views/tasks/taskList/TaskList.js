@@ -7,43 +7,42 @@ var template = require('./template.html');
 var TaskViewDisplay = require('../taskDisplay/TaskDisplayView');
 var TaskModel = require('../../../model/TaskModel');
 
-var TaskList = Backbone.View.extend ({
+var TaskList = Backbone.View.extend({
 
-
-  initialize:function() {
+  initialize: function () {
     this.taskUl;
     this.defaultMessage = 'What do you want to do today?';
-    this.afterNewMessage = 'What else do you want to do?'
+    this.afterNewMessage = 'What else do you want to do?';
 
-    this.listenTo(this.collection, 'add', this.renderTasks) ;
+    this.listenTo(this.collection, 'add', this.renderTasks);
     this.listenTo(this.collection, 'remove', this.renderTasks);
   },
 
   events: {
 
-    'keypress' : 'onKeyPress',
-    'click #new-task-input-field' : 'onNewTaskClick'
+    'keypress': 'onKeyPress',
+    'click #new-task-input-field': 'onNewTaskClick'
 
   },
 
-  render: function() {
+  render: function () {
 
-    var pageTemplate = _.template(template())({defaultMessage:this.defaultMessage});
-    this.$el.append(pageTemplate) ;
-    this.taskUl = $('#task-list') ;
+    var pageTemplate = _.template(template())({defaultMessage: this.defaultMessage});
+    this.$el.append(pageTemplate);
+    this.taskUl = $('#task-list');
 
     this.renderTasks();
 
   },
 
-  renderTasks: function(status) {
+  renderTasks: function (status) {
 
     status = status || 'all';
     this.taskUl.html('');
 
-    _.each(this.collection.models, function(task){
-      var taskView = new TaskViewDisplay({model:task, collection:this.collection}) ;
-      if(this.filterTask(task, status)) {
+    _.each(this.collection.models, function (task) {
+      var taskView = new TaskViewDisplay({model: task, collection: this.collection});
+      if (this.filterTask(task, status)) {
         this.taskUl.append(taskView.render());
       }
 
@@ -51,61 +50,61 @@ var TaskList = Backbone.View.extend ({
 
   },
 
-  addNewTask:function() {
+  addNewTask: function () {
 
     var inputValue = $('#new-task-input-field').val();
     $('#new-task-input-field').blur();
     $('#new-task-input-field').val(this.afterNewMessage);
 
-    if(inputValue==='') return ;
+    if (inputValue === '') { return; };
 
-    var newTask = new TaskModel({taskName:inputValue});
-    this.collection.add(newTask) ;
+    var newTask = new TaskModel({taskName: inputValue});
+    this.collection.add(newTask);
 
     console.log('ADD NEW TASK');
   },
 
-  filterTask:function(model, status) {
+  filterTask: function (model, status) {
 
-    switch(status) {
+    switch (status) {
       case 'active' :
-            if(!model.get('status')) {
-                return true ;
-            } else {
-                return false ;
-            }
-            break ;
+        if (!model.get('status')) {
+          return true;
+        } else {
+          return false;
+        }
+        break;
 
       case 'completed' :
-        if(!model.get('status')) {
-          return false ;
+        if (!model.get('status')) {
+          return false;
         } else {
-          return true ;
+          return true;
         }
-        break ;
+        break;
 
       case 'all' :
       default :
-        return true ;
-        break ;
+        return true;
+        break;
     }
   },
 
-  onKeyPress: function(e) {
+  onKeyPress: function (e) {
 
     switch (e.charCode) {
       case 13 :
-            this.addNewTask() ;
-            break ;
+        this.addNewTask();
+        break;
 
     }
   },
 
-  onNewTaskClick: function(e) {
+  onNewTaskClick: function (e) {
 
     $('#new-task-input-field').val('');
   }
 
 });
 
-module.exports = TaskList ;
+module.exports = TaskList;
