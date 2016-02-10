@@ -7,6 +7,10 @@ var template = require('./template.html');
 
 var FooterView = Backbone.View.extend({
 
+  events: {
+    'click button' : 'deleteCompleted'
+  },
+
   initialize:function(){
     this.listenTo(this.collection, 'add', this.render) ;
     this.listenTo(this.collection, 'change', this.render);
@@ -18,6 +22,17 @@ var FooterView = Backbone.View.extend({
     var tasksLeft = this.collection.where({status:false}).length ;
     var pageTemplate = _.template(template())({tasksLeft:tasksLeft});
     this.$el.html(pageTemplate) ;
+
+  },
+
+  deleteCompleted: function() {
+
+    console.log('Delete Completed');
+    this.collection.each(function(model) {
+      if(model.get('status')) {
+        this.collection.remove(model) ;
+      }
+    }, this);
 
   }
 
