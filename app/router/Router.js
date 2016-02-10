@@ -11,32 +11,26 @@ var Router = Backbone.Router.extend({
 
   initialize: function() {
 
-    this.mainContent = $('#main-content') ;
+    this.taskList ;
+    this.tasks ;
+
     this.taskContainerDiv = $('#task-container');
 
     this.buildData();
     this.buildList();
 
-    this.footer = new FooterView({el:$('footer'), collection:window.app.tasks}) ;
-    //this.footer.tasks = window.app.tasks;
+    this.footer = new FooterView({el:$('footer'), collection:this.tasks}) ;
     this.footer.render();
   },
 
   routes: {
-    'page/:page': 'gotoPage'
+    'status/:status': 'filterTasks'
   },
 
-  gotoPage: function(page) {
-    console.log('GoTo=' + page) ;
+  filterTasks: function(status) {
 
-    switch (page) {
-      case '1' :
-
-        break ;
-      case '2' :
-
-        break ;
-    }
+    console.log('Filter Tasks' + status);
+    this.taskList.renderTasks(status);
 
   },
 
@@ -46,14 +40,14 @@ var Router = Backbone.Router.extend({
     var task2 = new TaskModel({taskName:'Add Footer Links to Page'}) ;
     var task3 = new TaskModel({taskName:'Build Models and Collections And Populate Them with Tasks'}) ;
 
-    window.app.tasks= new TasksCollection([task1,task2,task3]);
+    this.tasks= new TasksCollection([task1,task2,task3]);
 
   },
 
   buildList:function(){
 
-      var taskList = new TaskList({el:this.taskContainerDiv, collection:window.app.tasks}) ;
-      taskList.render();
+      this.taskList = new TaskList({el:this.taskContainerDiv, collection:this.tasks}) ;
+      this.taskList.render();
   }
 }) ;
 

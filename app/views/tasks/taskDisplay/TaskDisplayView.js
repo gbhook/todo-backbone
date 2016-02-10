@@ -38,8 +38,6 @@ var TaskDisplayView = Backbone.View.extend({
     this.label = this.$('label');
     this.input.hide();
 
-    console.log(this.input.val());
-
     return this.el ;
 
   },
@@ -49,10 +47,21 @@ var TaskDisplayView = Backbone.View.extend({
     this.label.html(this.model.get('taskName'));
   },
 
+  setVisible: function(val) {
+
+    if(val){
+      this.$el.show() ;
+    } else {
+      this.$el.hide() ;
+    }
+
+  } ,
+
   onStatusClicked: function() {
 
     console.log('TaskDisplayView onStatusClicked');
-    this.model.set({status:!this.model.get('status')}) ;
+    this.model.set({status:this.checkbox.val()}) ;
+    Backbone.history.loadUrl(Backbone.history.fragment);
   },
 
   onTaskClicked: function() {

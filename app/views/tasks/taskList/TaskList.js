@@ -36,13 +36,17 @@ var TaskList = Backbone.View.extend ({
 
   },
 
-  renderTasks: function() {
+  renderTasks: function(status) {
 
+    status = status || 'all';
     this.taskUl.html('');
 
     _.each(this.collection.models, function(task){
       var taskView = new TaskViewDisplay({model:task, collection:this.collection}) ;
-      this.taskUl.append(taskView.render());
+      if(this.filterTask(task, status)) {
+        this.taskUl.append(taskView.render());
+      }
+
     }, this);
 
   },
@@ -50,21 +54,41 @@ var TaskList = Backbone.View.extend ({
   addNewTask:function() {
 
     var inputValue = $('#new-task-input-field').val();
+    $('#new-task-input-field').blur();
+    $('#new-task-input-field').val(this.afterNewMessage);
 
-    if(inputValue==='') {
-      $('#new-task-input-field').blur();
-      $('#new-task-input-field').val(this.afterNewMessage);
-      return ;
-    }
+    if(inputValue==='') return ;
 
     var newTask = new TaskModel({taskName:inputValue});
-
     this.collection.add(newTask) ;
 
-    $('#new-task-input-field').val(this.afterNewMessage);
-    $('#new-task-input-field').blur();
-
     console.log('ADD NEW TASK');
+  },
+
+  filterTask:function(model, status) {
+
+    switch(status) {
+      case 'active' :
+            if(!model.get('status')) {
+                return true ;
+            } else {
+                return false ;
+            }
+            break ;
+
+      case 'completed' :
+        if(!model.get('status')) {
+          return false ;
+        } else {
+          return true ;
+        }
+        break ;
+
+      case 'all' :
+      default :
+        return true ;
+        break ;
+    }
   },
 
   onKeyPress: function(e) {
