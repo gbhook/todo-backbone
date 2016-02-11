@@ -95,7 +95,7 @@ var TaskList = Backbone.View.extend({
 
     switch (e.charCode) {
       case 13 :
-        
+
         if(this.newTaskInput.is(':focus')) {
           this.addNewTask();
         }

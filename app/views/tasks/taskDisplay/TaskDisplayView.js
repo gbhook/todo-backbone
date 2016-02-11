@@ -74,8 +74,6 @@ var TaskDisplayView = Backbone.View.extend({
 
   onTaskBlur: function () {
 
-    console.log('on task blur');
-
     this.model.set('taskName', this.input.val());
     this.input.hide();
     this.label.show();
