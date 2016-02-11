@@ -31,6 +31,7 @@ var TaskList = Backbone.View.extend({
     this.$el.append(pageTemplate);
     this.taskUl = $('#task-list');
     this.newTaskInput = $('#new-task-input-field');
+    this.markAllCheckbox = $('#complete-all');
     this.renderTasks();
 
   },
@@ -106,11 +107,11 @@ var TaskList = Backbone.View.extend({
   },
 
   onCompleteAllClick: function (e) {
-    console.log('onCompleteAllClick');
+    console.log('onCompleteAllClick ' + this.markAllCheckbox.is(':checked'));
     this.collection.each(function(task) {
       console.log(task);
-      task.set('status', true) ;
-    });
+      task.set('status', this.markAllCheckbox.is(':checked')) ;
+    }.bind(this));
     Backbone.history.loadUrl(Backbone.history.fragment);
   }
 

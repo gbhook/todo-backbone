@@ -7,6 +7,7 @@
   border-radius:3px;
   border:none;
   padding:3px;
+
 }
 
 #new-task {
@@ -18,18 +19,19 @@
 
 #new-task input {
   display:block;
-  margin:0 auto;
   padding:5px;
   border:1px;
   border-style:solid;
   border-color:#666;
   box-shadow:inset 1px 1px 1px 1px #666;
   font-size: 24px;
+  color:gray;
+
 }
 
 #mark-all-complete {
   display:block ;
-
+  font-size:12px;
 }
 
 #task-list {
@@ -44,21 +46,34 @@
   color:gray ;
   background-color:gray ;
   border:0px;
-
+  clear:both;
 }
 
 #task-list li {
   list-style-type: none;
+  margin-left:0px;
+}
 
+#task-list li input {
+  width:100%;
 }
 
 .task-display-container {
   display:block ;
-  width:90%;
+  margin-top:-5px;
+  width:85%;
+  padding:1%;
   float:left ;
 }
 
 .task-delete-container {
   display:block;
-  margin-left:10%
+  //margin-left:90%
+  float:left;
+  width:10%;
+}
+
+.checkbox-container {
+  float:left;
+  width:3% ;
 }

@@ -1,4 +1,5 @@
-<div class="task-display-container"><input class="status-checkbox" name="status" type="checkbox" <% if (data.taskStatus) {%> checked <% } %> >
+<div class="checkbox-container"><input class="status-checkbox" name="status" type="checkbox" <% if (data.taskStatus) {%> checked <% } %> ></div>
+<div class="task-display-container">
 <label><%=data.taskName %></label>
 <input type="text" name="task" class="task-name" value="<%=data.taskName %>"></div>
 <div class="task-delete-container"><button type="button" value="delete" class="delete-button">Delete</button></div>

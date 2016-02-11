@@ -83,7 +83,7 @@ var TaskDisplayView = Backbone.View.extend({
   },
 
   onDeleteButtonClicked: function () {
-    console.log('on DELETE CLICKED');
+
     this.collection.remove(this.model);
   }
 
