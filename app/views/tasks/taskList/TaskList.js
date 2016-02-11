@@ -21,8 +21,8 @@ var TaskList = Backbone.View.extend({
   events: {
 
     'keypress': 'onKeyPress',
-    'click #new-task-input-field': 'onNewTaskClick'
-
+    'click #new-task-input-field': 'onNewTaskClick',
+    'click #complete-all': 'onCompleteAllClick'
   },
 
   render: function () {
@@ -30,7 +30,7 @@ var TaskList = Backbone.View.extend({
     var pageTemplate = _.template(template())({defaultMessage: this.defaultMessage});
     this.$el.append(pageTemplate);
     this.taskUl = $('#task-list');
-
+    this.newTaskInput = $('#new-task-input-field');
     this.renderTasks();
 
   },
@@ -52,9 +52,9 @@ var TaskList = Backbone.View.extend({
 
   addNewTask: function () {
 
-    var inputValue = $('#new-task-input-field').val();
-    $('#new-task-input-field').blur();
-    $('#new-task-input-field').val(this.afterNewMessage);
+    var inputValue = this.newTaskInput.val();
+    this.newTaskInput.blur();
+    this.newTaskInput.val(this.afterNewMessage);
 
     if (inputValue === '') { return; };
 
@@ -102,7 +102,16 @@ var TaskList = Backbone.View.extend({
 
   onNewTaskClick: function (e) {
 
-    $('#new-task-input-field').val('');
+    this.newTaskInput.val('');
+  },
+
+  onCompleteAllClick: function (e) {
+    console.log('onCompleteAllClick');
+    this.collection.each(function(task) {
+      console.log(task);
+      task.set('status', true) ;
+    });
+    Backbone.history.loadUrl(Backbone.history.fragment);
   }
 
 });

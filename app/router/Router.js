@@ -19,7 +19,7 @@ var Router = Backbone.Router.extend({
     this.buildData();
     this.buildList();
 
-    this.footer = new FooterView({el: $('footer'), collection: this.tasks});
+    this.footer = new FooterView({el: $('#footer'), collection: this.tasks});
     this.footer.render();
   },
 
