@@ -1,3 +1,5 @@
+
+
 #new-task {
   margin-left:5%;
   margin-right:5%;
@@ -13,14 +15,14 @@
   border-style:solid;
   border-color:#666;
   box-shadow:inset 1px 1px 1px 1px #666;
-  font-size: 3vw;
+  font-size: 28px;
   font-style: italic;
   color:gray;
 }
 
 #mark-all-complete {
   display:block ;
-  font-size: 2vw;
+  font-size: 14px;
   margin-left:5.5%;
   margin-right:6%;
   margin-top:10px;
@@ -36,7 +38,7 @@
 }
 
 #task-list {
-  font-size: 3vw;
+  font-size: 28px;
   width:90%;
   float:none;
   margin-top:50px;
@@ -44,7 +46,26 @@
   margin-right:5%;
 }
 
+@media screen and (max-width:480px) {
 
+  #task-list {
+    font-size: 14px;
+    margin-top:30px;
+  }
+
+  #mark-all-complete {
+    font-size: 10px;
+  }
+
+  #new-task input {
+    font-size: 14px;
+  }
+
+  #complete-all {
+    width:3% ;
+  }
+
+}
 
 
 

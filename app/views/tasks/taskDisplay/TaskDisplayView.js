@@ -39,6 +39,8 @@ var TaskDisplayView = Backbone.View.extend({
 
     var pageTemplate = _.template(template())({data: data});
 
+    console.log('lgfd');
+
     this.$el.html(pageTemplate);
     this.input = this.$('.task-name');
     this.checkbox = this.$('.status-checkbox');
