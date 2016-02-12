@@ -7,7 +7,7 @@ var template = require('./template.html');
 
 var TaskDisplayView = Backbone.View.extend({
 
-  tagName: 'li',
+  tagName: 'div',
 
   initialize: function () {
 
