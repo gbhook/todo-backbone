@@ -8,6 +8,7 @@ var template = require('./template.html');
 var TaskDisplayView = Backbone.View.extend({
 
   tagName: 'div',
+  taskCount:0,
 
   initialize: function () {
 
@@ -24,10 +25,16 @@ var TaskDisplayView = Backbone.View.extend({
 
   render: function () {
 
+    var showHR = true ;
+    if(this.taskCount===this.collection.length) {
+      showHR = false ;
+    }
+
     var data = {
       taskStatus: this.model.attributes.status,
       taskName: this.model.attributes.taskName,
-      taskId: this.model.cid
+      taskId: this.model.cid,
+      showHR: showHR
     };
 
     var pageTemplate = _.template(template())({data: data});

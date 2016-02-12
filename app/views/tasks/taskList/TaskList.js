@@ -40,11 +40,15 @@ var TaskList = Backbone.View.extend({
 
     status = status || 'all';
     this.taskUl.html('');
-
+    var taskCount=0;
     _.each(this.collection.models, function (task) {
-      var taskView = new TaskViewDisplay({model: task, collection: this.collection});
+
       if (this.filterTask(task, status)) {
+        var taskView = new TaskViewDisplay({model: task, collection: this.collection});
+        taskCount++;
+        taskView.taskCount = taskCount ;
         this.taskUl.append(taskView.render());
+
       }
 
     }, this);
