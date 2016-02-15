@@ -19,10 +19,10 @@ var TaskList = Backbone.View.extend({
   },
 
   events: {
-
     'keypress': 'onKeyPress',
     'click #new-task-input-field': 'onNewTaskClick',
-    'click #complete-all': 'onCompleteAllClick'
+    'click #complete-all': 'onCompleteAllClick',
+    'blur #new-task-input-field': 'onNewTaskBlur'
   },
 
   render: function () {
@@ -40,13 +40,13 @@ var TaskList = Backbone.View.extend({
 
     status = status || 'all';
     this.taskUl.html('');
-    var taskCount=0;
+    var taskCount = 0;
     _.each(this.collection.models, function (task) {
 
       if (this.filterTask(task, status)) {
         var taskView = new TaskViewDisplay({model: task, collection: this.collection});
         taskCount++;
-        taskView.taskCount = taskCount ;
+        taskView.taskCount = taskCount;
         this.taskUl.append(taskView.render());
 
       }
@@ -61,7 +61,9 @@ var TaskList = Backbone.View.extend({
     this.newTaskInput.blur();
     this.newTaskInput.val(this.afterNewMessage);
 
-    if (inputValue === '') { return; };
+    if (inputValue === '') {
+      return;
+    }
 
     var newTask = new TaskModel({taskName: inputValue});
     this.collection.add(newTask);
@@ -89,6 +91,8 @@ var TaskList = Backbone.View.extend({
         break;
 
       case 'all' :
+        return true;
+        break ;
       default :
         return true;
         break;
@@ -100,7 +104,7 @@ var TaskList = Backbone.View.extend({
     switch (e.charCode) {
       case 13 :
 
-        if(this.newTaskInput.is(':focus')) {
+        if (this.newTaskInput.is(':focus')) {
           this.addNewTask();
         }
         break;
@@ -113,11 +117,17 @@ var TaskList = Backbone.View.extend({
     this.newTaskInput.val('');
   },
 
+  onNewTaskBlur: function (e) {
+
+    this.newTaskInput.val(this.defaultMessage);
+
+  },
+
   onCompleteAllClick: function (e) {
     console.log('onCompleteAllClick ' + this.markAllCheckbox.is(':checked'));
-    this.collection.each(function(task) {
+    this.collection.each(function (task) {
       console.log(task);
-      task.set('status', this.markAllCheckbox.is(':checked')) ;
+      task.set('status', this.markAllCheckbox.is(':checked'));
     }.bind(this));
     Backbone.history.loadUrl(Backbone.history.fragment);
   }

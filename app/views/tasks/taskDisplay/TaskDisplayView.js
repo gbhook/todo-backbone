@@ -26,7 +26,7 @@ var TaskDisplayView = Backbone.View.extend({
   render: function () {
 
     var showHR = true ;
-    if(this.taskCount===this.collection.length) {
+    if (this.taskCount === this.collection.length) {
       showHR = false ;
     }
 
